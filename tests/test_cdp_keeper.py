@@ -178,7 +178,7 @@ class TestCdpKeeperBehaviour:
         assert deployment.tub.tab(1) == Wad.from_number(3500)
         assert deployment.sai.balance_of(deployment.our_address) == Wad.from_number(2000)
 
-    def test_should_both_wipe_and_top_up_if_collateralization_too(self, deployment: Deployment):
+    def test_should_both_wipe_and_top_up_if_collateralization_too_low(self, deployment: Deployment):
         # given
         self.open_cdp(deployment, eth_amount=40, sai_amount=5000)
         self.sai_balance(deployment, balance=3500)
