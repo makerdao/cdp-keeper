@@ -51,7 +51,7 @@ class TestCdpKeeperArguments:
         with captured_output() as (out, err):
             with pytest.raises(SystemExit):
                 CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                   f"--tub-address {deployment.tub.address}"),
+                                    f"--tub-address {deployment.tub.address}"),
                           web3=deployment.web3)
 
         # then
@@ -62,8 +62,8 @@ class TestCdpKeeperArguments:
         with captured_output() as (out, err):
             with pytest.raises(SystemExit):
                 CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                   f"--tub-address {deployment.tub.address} "
-                                   f"--min-margin 0.2"),
+                                    f"--tub-address {deployment.tub.address} "
+                                    f"--min-margin 0.2"),
                           web3=deployment.web3)
 
         # then
@@ -107,8 +107,8 @@ class TestCdpKeeperBehaviour:
 
         # and
         keeper = CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                    f"--tub-address {deployment.tub.address} "
-                                    f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
+                                     f"--tub-address {deployment.tub.address} "
+                                     f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
                            web3=deployment.web3)
         keeper.approve()
 
@@ -127,8 +127,8 @@ class TestCdpKeeperBehaviour:
 
         # and
         keeper = CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                    f"--tub-address {deployment.tub.address} "
-                                    f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
+                                     f"--tub-address {deployment.tub.address} "
+                                     f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
                            web3=deployment.web3)
         keeper.approve()
 
@@ -155,8 +155,8 @@ class TestCdpKeeperBehaviour:
 
         # and
         keeper = CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                    f"--tub-address {deployment.tub.address} "
-                                    f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
+                                     f"--tub-address {deployment.tub.address} "
+                                     f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
                            web3=deployment.web3)
         keeper.approve()
 
@@ -185,8 +185,8 @@ class TestCdpKeeperBehaviour:
 
         # and
         keeper = CdpKeeper(args=args(f"--eth-from {deployment.web3.eth.defaultAccount} "
-                                    f"--tub-address {deployment.tub.address} "
-                                    f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
+                                     f"--tub-address {deployment.tub.address} "
+                                     f"--min-margin 0.2 --top-up-margin 0.45 --max-sai 3000 --avg-sai 2000"),
                            web3=deployment.web3)
         keeper.approve()
 
