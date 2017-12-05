@@ -17,7 +17,7 @@
 
 import pytest
 
-from keeper.cdp_keeper import CdpKeeper
+from cdp_keeper.cdp_keeper import CdpKeeper
 from pymaker import Address
 from pymaker.deployment import Deployment
 from pymaker.feed import DSValue
