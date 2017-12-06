@@ -34,11 +34,7 @@ from pymaker.util import eth_balance, chain
 
 
 class CdpKeeper:
-    """Keeper to actively manage open CDPs.
-
-    Keeper constantly monitors cups owned by the `--eth-from` account.
-    Cups owned by other accounts are ignored.
-    """
+    """Keeper to actively manage open CDPs."""
 
     def __init__(self, args: list, **kwargs):
         parser = argparse.ArgumentParser(prog='cdp-keeper')
