@@ -68,7 +68,7 @@ class CdpKeeper:
         self.logger = Logger('bite-keeper', self.chain, _json_log, self.arguments.debug, self.arguments.trace)
         Contract.logger = self.logger
 
-    def lifecycle(self):
+    def main(self):
         with Web3Lifecycle(self.web3, self.logger) as lifecycle:
             self.lifecycle = lifecycle
             lifecycle.on_startup(self.startup)
@@ -155,4 +155,4 @@ class CdpKeeper:
 
 
 if __name__ == '__main__':
-    CdpKeeper(sys.argv[1:]).lifecycle()
+    CdpKeeper(sys.argv[1:]).main()
