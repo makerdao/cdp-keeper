@@ -65,7 +65,7 @@ class CdpKeeper:
         self.avg_sai = Wad.from_number(self.arguments.avg_sai)
 
         _json_log = os.path.abspath(pkg_resources.resource_filename(__name__, f"../logs/cdp-keeper_{self.chain}_{self.our_address}.json.log".lower()))
-        self.logger = Logger('bite-keeper', self.chain, _json_log, self.arguments.debug, self.arguments.trace)
+        self.logger = Logger('cdp-keeper', self.chain, _json_log, self.arguments.debug, self.arguments.trace)
         Contract.logger = self.logger
 
     def main(self):
