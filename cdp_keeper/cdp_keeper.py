@@ -70,11 +70,12 @@ class CdpKeeper:
 
     def lifecycle(self):
         with Web3Lifecycle(self.web3, self.logger) as lifecycle:
+            self.lifecycle = lifecycle
             lifecycle.on_startup(self.startup)
 
-    def startup(self, lifecycle):
+    def startup(self):
         self.approve()
-        lifecycle.on_block(self.check_all_cups)
+        self.lifecycle.on_block(self.check_all_cups)
 
     def approve(self):
         self.tub.approve(directly())
