@@ -120,6 +120,24 @@ class TestCdpKeeperBehaviour:
         # then
         # [nothing bad happens]
 
+    #
+    # For all tests liquidation ratio is 200% and `--min-margin` is 0.2,
+    # so we try to maintain collateralization ratio of at least 220%.
+    #
+    # As `--top-up-margin` is 0.45, every time collateralization ratio
+    # falls under 220% the keeper will try to being it to 245%.
+    #
+
+    #
+    # TEST CASE #1
+    #
+    # We have 40 ETH locked, 5000 SAI debt and 2500 SAI in our account.
+    # If price is 276 the collateralization ratio is 220,8%, but when price falls
+    # to 274 the collateralization ratio falls to 219,2% which is below minimum.
+    #
+    # The amount of SAI we hold (2500 SAI) is less than `--max-sai`, so the keeper does not
+    # wipe our debt but locks additional collateral so the collateralization level becomes 245%.
+    #
     def test_should_top_up_if_collateralization_too_low_and_sai_below_max(self, deployment: Deployment):
         # given
         self.open_cdp(deployment, eth_amount=40, sai_amount=5000)
@@ -148,6 +166,18 @@ class TestCdpKeeperBehaviour:
         assert deployment.tub.ink(1) == Wad(44708029197080290000)
         assert deployment.tub.tab(1) == Wad.from_number(5000)
 
+    #
+    # TEST CASE #2
+    #
+    # We have 40 ETH locked, 5000 SAI debt and 3500 SAI in our account.
+    # If price is 276 the collateralization ratio is 220,8%, but when price falls
+    # to 274 the collateralization ratio falls to 219,2% which is below minimum.
+    #
+    # The amount of SAI we hold (3500 SAI) is more than `--max-sai`, so the keeper wipes
+    # 1500 SAI debt to bring us to `--avg-sai` which is 2000 SAI. This way our debt falls
+    # to 3500 SAI, collateralization ratio is now way above 220% so no need to lock
+    # additional collateral.
+    #
     def test_should_wipe_if_collateralization_too_low_and_sai_above_max(self, deployment: Deployment):
         # given
         self.open_cdp(deployment, eth_amount=40, sai_amount=5000)
@@ -178,6 +208,19 @@ class TestCdpKeeperBehaviour:
         assert deployment.tub.tab(1) == Wad.from_number(3500)
         assert deployment.sai.balance_of(deployment.our_address) == Wad.from_number(2000)
 
+    #
+    # TEST CASE #3
+    #
+    # We have 40 ETH locked, 5000 SAI debt and 3500 SAI in our account.
+    # If price is 276 the collateralization ratio is 220,8%, but when price falls
+    # to 120 the collateralization ratio falls to 96% which is way below minimum.
+    #
+    # The amount of SAI we hold (3500 SAI) is more than `--max-sai`, so the keeper wipes
+    # 1500 SAI debt to bring us to `--avg-sai` which is 2000 SAI. Our debt falls
+    # to 3500 SAI, the collateralization ratio is now at ~ 137%, which is still below
+    # minimum. So the keeper locks additional ~ 31,45 ETH collateral, which brings
+    # the collateralization level to the target of 245%.
+    #
     def test_should_both_wipe_and_top_up_if_collateralization_too_low(self, deployment: Deployment):
         # given
         self.open_cdp(deployment, eth_amount=40, sai_amount=5000)
