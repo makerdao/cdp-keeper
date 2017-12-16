@@ -47,7 +47,7 @@ export LDFLAGS="-L$(brew --prefix openssl)/lib" CFLAGS="-I$(brew --prefix openss
 usage: cdp-keeper [-h] [--rpc-host RPC_HOST] [--rpc-port RPC_PORT] --eth-from
                   ETH_FROM --tub-address TUB_ADDRESS --min-margin MIN_MARGIN
                   --top-up-margin TOP_UP_MARGIN --max-sai MAX_SAI --avg-sai
-                  AVG_SAI [--gas-price GAS_PRICE] [--debug] [--trace]
+                  AVG_SAI [--gas-price GAS_PRICE] [--debug]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -67,7 +67,6 @@ optional arguments:
   --gas-price GAS_PRICE
                         Gas price in Wei (default: node default)
   --debug               Enable debug output
-  --trace               Enable trace output
 ```
 
 ## License
