@@ -74,7 +74,7 @@ class CdpKeeper:
         self.approve()
 
     def approve(self):
-        self.tub.approve(directly())
+        self.tub.approve(directly(gas_price=self.gas_price()))
 
     def check_all_cups(self):
         for cup in self.our_cups():
