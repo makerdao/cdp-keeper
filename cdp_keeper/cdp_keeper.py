@@ -16,17 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import argparse
-import os
+import logging
 import sys
 
-import pkg_resources
 from web3 import Web3, HTTPProvider
 
 from pymaker import Contract, Address
 from pymaker.approval import directly
 from pymaker.gas import FixedGasPrice, DefaultGasPrice
 from pymaker.lifecycle import Web3Lifecycle
-from pymaker.logger import Logger
 from pymaker.numeric import Wad, Ray
 from pymaker.sai import Tub
 from pymaker.token import ERC20Token
@@ -35,6 +33,8 @@ from pymaker.util import eth_balance, chain
 
 class CdpKeeper:
     """Keeper to actively manage open CDPs."""
+
+    logger = logging.getLogger('cdp-keeper')
 
     def __init__(self, args: list, **kwargs):
         parser = argparse.ArgumentParser(prog='cdp-keeper')
@@ -48,28 +48,25 @@ class CdpKeeper:
         parser.add_argument("--avg-sai", type=float, required=True)
         parser.add_argument("--gas-price", help="Gas price in Wei (default: node default)", default=0, type=int)
         parser.add_argument("--debug", help="Enable debug output", dest='debug', action='store_true')
-        parser.add_argument("--trace", help="Enable trace output", dest='trace', action='store_true')
         self.arguments = parser.parse_args(args)
 
         self.web3 = kwargs['web3'] if 'web3' in kwargs else Web3(HTTPProvider(endpoint_uri=f"http://{self.arguments.rpc_host}:{self.arguments.rpc_port}"))
         self.web3.eth.defaultAccount = self.arguments.eth_from
-
-        self.chain = chain(self.web3)
         self.our_address = Address(self.arguments.eth_from)
         self.tub = Tub(web3=self.web3, address=Address(self.arguments.tub_address))
         self.sai = ERC20Token(web3=self.web3, address=self.tub.sai())
+
         self.liquidation_ratio = self.tub.mat()
         self.minimum_ratio = self.liquidation_ratio + Ray.from_number(self.arguments.min_margin)
         self.target_ratio = self.liquidation_ratio + Ray.from_number(self.arguments.top_up_margin)
         self.max_sai = Wad.from_number(self.arguments.max_sai)
         self.avg_sai = Wad.from_number(self.arguments.avg_sai)
 
-        _json_log = os.path.abspath(pkg_resources.resource_filename(__name__, f"../logs/cdp-keeper_{self.chain}_{self.our_address}.json.log".lower()))
-        self.logger = Logger('cdp-keeper', self.chain, _json_log, self.arguments.debug, self.arguments.trace)
-        Contract.logger = self.logger
+        logging.basicConfig(format='%(asctime)-15s %(levelname)-8s %(message)s',
+                            level=(logging.DEBUG if self.arguments.debug else logging.INFO))
 
     def main(self):
-        with Web3Lifecycle(self.web3, self.logger) as lifecycle:
+        with Web3Lifecycle(self.web3) as lifecycle:
             lifecycle.on_startup(self.startup)
             lifecycle.on_block(self.check_all_cups)
 
