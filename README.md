@@ -33,8 +33,9 @@ For some known macOS issues see the [pymaker](https://github.com/makerdao/pymake
 ## Usage
 
 ```
-usage: cdp-keeper [-h] [--rpc-host RPC_HOST] [--rpc-port RPC_PORT] --eth-from
-                  ETH_FROM --tub-address TUB_ADDRESS --min-margin MIN_MARGIN
+usage: cdp-keeper [-h] [--rpc-host RPC_HOST] [--rpc-port RPC_PORT]
+                  [--rpc-timeout RPC_TIMEOUT] --eth-from ETH_FROM
+                  --tub-address TUB_ADDRESS --min-margin MIN_MARGIN
                   --top-up-margin TOP_UP_MARGIN --max-sai MAX_SAI --avg-sai
                   AVG_SAI [--gas-price GAS_PRICE] [--debug]
 
@@ -42,6 +43,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --rpc-host RPC_HOST   JSON-RPC host (default: `localhost')
   --rpc-port RPC_PORT   JSON-RPC port (default: `8545')
+  --rpc-timeout RPC_TIMEOUT
+                        JSON-RPC timeout (in seconds, default: 10)
   --eth-from ETH_FROM   Ethereum account from which to send transactions
   --tub-address TUB_ADDRESS
                         Ethereum address of the Tub contract
