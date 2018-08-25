@@ -117,8 +117,9 @@ class CdpKeeper:
         tab = self.tub.tab(cup_id)
         if tab > Wad(0):
             current_ratio = Ray(pro / tab)
-            print(current_ratio)
-            print(self.minimum_ratio)
+            # Prints the Current CDP Ratio and the Minimum Ratio specified under --min-margin
+            print(f'Current Ratio {current_ratio}')
+            print(f'Minimum Ratio {self.minimum_ratio}')
             return current_ratio < self.minimum_ratio
         else:
             return False
