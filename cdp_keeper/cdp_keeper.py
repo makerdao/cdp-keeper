@@ -24,7 +24,7 @@ from web3 import Web3, HTTPProvider
 from pymaker import Contract, Address
 from pymaker.approval import directly
 from pymaker.gas import FixedGasPrice, DefaultGasPrice
-from pymaker.lifecycle import Lifecycle as Web3Lifecycle
+from pymaker.lifecycle import Lifecycle
 from pymaker.numeric import Wad, Ray
 from pymaker.sai import Tub
 from pymaker.token import ERC20Token
@@ -68,7 +68,7 @@ class CdpKeeper:
                             level=(logging.DEBUG if self.arguments.debug else logging.INFO))
 
     def main(self):
-        with Web3Lifecycle(self.web3) as lifecycle:
+        with Lifecycle(self.web3) as lifecycle:
             lifecycle.on_startup(self.startup)
             lifecycle.on_block(self.check_all_cups)
 
