@@ -24,7 +24,7 @@ from web3 import Web3, HTTPProvider
 from pymaker import Contract, Address
 from pymaker.approval import directly
 from pymaker.gas import FixedGasPrice, DefaultGasPrice
-from pymaker.lifecycle import Web3Lifecycle
+from pymaker.lifecycle import Lifecycle as Web3Lifecycle
 from pymaker.numeric import Wad, Ray
 from pymaker.sai import Tub
 from pymaker.token import ERC20Token
