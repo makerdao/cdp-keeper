@@ -24,7 +24,7 @@ from web3 import Web3, HTTPProvider
 from pymaker import Contract, Address
 from pymaker.approval import directly
 from pymaker.gas import FixedGasPrice, DefaultGasPrice
-from pymaker.lifecycle import Web3Lifecycle
+from pymaker.lifecycle import Lifecycle as Web3Lifecycle
 from pymaker.numeric import Wad, Ray
 from pymaker.sai import Tub
 from pymaker.token import ERC20Token
@@ -117,8 +117,9 @@ class CdpKeeper:
         tab = self.tub.tab(cup_id)
         if tab > Wad(0):
             current_ratio = Ray(pro / tab)
-            print(current_ratio)
-            print(self.minimum_ratio)
+            # Prints the Current CDP Ratio and the Minimum Ratio specified under --min-margin
+            print(f'Current Ratio {current_ratio}')
+            print(f'Minimum Ratio {self.minimum_ratio}')
             return current_ratio < self.minimum_ratio
         else:
             return False
