@@ -77,8 +77,8 @@ class TestCdpKeeperBehaviour:
 
     def open_cdp(self, deployment: Deployment, eth_amount, sai_amount):
         # given
-        deployment.tub.cuff(Ray.from_number(2.0)).transact()
-        deployment.tub.cork(Wad.from_number(100000000)).transact()
+        deployment.tub.mold_mat(Ray.from_number(2.0)).transact()
+        deployment.tub.mold_cap(Wad.from_number(100000000)).transact()
 
         # and
         self.set_price(deployment, 500)
