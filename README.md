@@ -15,15 +15,15 @@ volume within specific range etc.). **This keeper is still under development.**
 It only monitors cups owned by the `--eth-from` account. Cups owned by other
 accounts are ignored.
 
-# Example
+<https://chat.makerdao.com/channel/keeper>
+
+## Example
 
 If the CDP collateralization ratio goes below `--min-margin` and at the same time the debt is greater than `--max-sai`, it tries to `wipe` some debt targeting `--avg-sai`. if wiping that debt didn't help to bring collateralization ratio above `--min-margin` (or it wasn't possible to `wipe` at all for some reason, for example the keeper didn't have any Dai), it then tries to `lock` some extra collateral in order to bring collateralization ratio at least to `--top-up-margin`
 
 Both `--min-margin` and `--top-up-margin` are expressed as on top of the current liquidation ratio configured.
 
 If liquidation ratio is `1.50` (= 150%), then if you set `--min-margin 1.0` it will try to top-up if below 250%
-
-<https://chat.makerdao.com/channel/keeper>
 
 ## Installation
 
