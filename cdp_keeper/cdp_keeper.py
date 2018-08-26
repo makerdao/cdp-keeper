@@ -142,7 +142,7 @@ class CdpKeeper:
         tab = self.tub.tab(cup_id)
         if tab > Wad(0):
             current_ratio = Ray(pro / tab)
-            return Wad.max(tab * (Wad(self.target_ratio - current_ratio) / self.tub.tag()), Wad(0))
+            return Wad.max(tab * (Wad(self.target_ratio - current_ratio) / Wad.from_number(self.tub.tag())), Wad(0))
         else:
             return Wad(0)
 
