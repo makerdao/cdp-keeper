@@ -1,6 +1,6 @@
 # cdp-keeper
 
-[![Build Status](https://travis-ci.org/makerdao/cdp-keeper.svg?branch=master)](https://travis-ci.org/makerdao/cdp-keeper)
+![Build Status](https://github.com/makerdao/cdp-keeper/actions/workflows/.github/workflows/tests.yaml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/makerdao/cdp-keeper/branch/master/graph/badge.svg)](https://codecov.io/gh/makerdao/cdp-keeper)
 
 The _DAI Stablecoin System_ incentivizes external agents, called _keepers_,
